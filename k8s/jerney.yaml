@@ -200,7 +200,7 @@ spec:
               echo "DB is ready!"
       containers:
         - name: backend
-          image: divue/jerney-backend:latest
+          image: ghcr.io/Divue/bla_bla_jerney/jerney-backend:3d5fdfa
           ports:
             - containerPort: 5000
               protocol: TCP
@@ -307,7 +307,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: frontend
-          image: divue/jerney-frontend:v3
+          image: ghcr.io/Divue/bla_bla_jerney/jerney-frontend:3d5fdfa
           ports:
             - containerPort: 8080
               protocol: TCP
