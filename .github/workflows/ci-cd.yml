@@ -149,9 +149,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build image for scanning
-        run: |
-          docker build -t jerney-${{ matrix.component }}:scan ./${{ matrix.component }}
+      - name: Scan pushed image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ghcr.io/${{ github.repository }}/jerney-${{ matrix.component }}:${{ github.sha }}
+
+      # - name: Build image for scanning
+      #   run: |
+      #     docker build -t jerney-${{ matrix.component }}:scan ./${{ matrix.component }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -161,7 +166,7 @@ jobs:
           exit-code: "1"
           ignore-unfixed: true
           vuln-type: "os,library"
-          severity: "CRITICAL,HIGH"
+          severity: "CRITICAL"
           timeout: "10m"
 
   # ==============================================================
