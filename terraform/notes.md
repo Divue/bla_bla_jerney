@@ -1,5 +1,5 @@
 # 🏗️ Terraform Infrastructure Notes
-### Jerney Blog Platform — AWS EKS with Terraform | From Zero to Interview-Ready
+### Jerney Blog Platform — AWS EKS with Terraform 
 
 ---
 
