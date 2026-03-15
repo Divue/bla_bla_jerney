@@ -225,13 +225,9 @@ spec:
 
       containers:
         - name: backend
-<<<<<<< HEAD
-          image: ghcr.io/Divue/bla_bla_jerney/jerney-backend:3372cb4
-=======
           image: ghcr.io/Divue/bla_bla_jerney/jerney-backend:fbd29f8
           imagePullPolicy: Always
 
->>>>>>> b1993c5 (tried fixing the pipeline)
           ports:
             - containerPort: 5000
               protocol: TCP
@@ -284,6 +280,7 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 15
             timeoutSeconds: 5
+
           readinessProbe:
             httpGet:
               path: /api/health
@@ -336,24 +333,25 @@ spec:
         app.kubernetes.io/component: frontend
     spec:
       automountServiceAccountToken: false
+
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+
       tolerations:
         - key: "karpenter.sh/disrupted"
           operator: "Exists"
           effect: "NoSchedule"
+
       containers:
         - name: frontend
-<<<<<<< HEAD
-          image: ghcr.io/Divue/bla_bla_jerney/jerney-frontend:3372cb4
-=======
           image: ghcr.io/Divue/bla_bla_jerney/jerney-frontend:fbd29f8
           imagePullPolicy: Always
->>>>>>> b1993c5 (tried fixing the pipeline)
+
           ports:
             - containerPort: 8080
               protocol: TCP
+
           resources:
             requests:
               cpu: 50m
@@ -361,6 +359,7 @@ spec:
             limits:
               cpu: 200m
               memory: 128Mi
+
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false # Nginx needs write for cache/pid
@@ -369,12 +368,14 @@ spec:
             capabilities:
               drop:
                 - ALL
+
           livenessProbe:
             httpGet:
               path: /
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
+
           readinessProbe:
             httpGet:
               path: /
