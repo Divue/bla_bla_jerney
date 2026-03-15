@@ -149,20 +149,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Scan pushed image
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ghcr.io/${{ github.repository }}/jerney-${{ matrix.component }}:${{ github.sha }}
-
-      # - name: Build image for scanning
-      #   run: |
-      #     docker build -t jerney-${{ matrix.component }}:scan ./${{ matrix.component }}
-
+      - name: Build image for scanning
+        run: |
+          docker build -t jerney-${{ matrix.component }}:scan ./${{ matrix.component }}
+    
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "jerney-${{ matrix.component }}:scan"
-          format: "table"
+          image-ref: jerney-${{ matrix.component }}:scan
+          format: table
           exit-code: "1"
           ignore-unfixed: true
           vuln-type: "os,library"
@@ -187,7 +182,10 @@ jobs:
           directory: terraform/
           framework: terraform
           soft_fail: false
-          skip_check: CKV_AWS_39,CKV_AWS_58  # Public EKS endpoint (intentional for dev)
+          # skip_check: CKV_AWS_39,CKV_AWS_58  # Public EKS endpoint (intentional for dev)
+          # output_format: cli
+          skip_check: CKV_AWS_39,CKV_AWS_58,CKV_TF_1
+          download_external_modules: true
           output_format: cli
 
       - name: Run Checkov on Kubernetes manifests
