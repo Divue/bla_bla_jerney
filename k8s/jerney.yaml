@@ -131,7 +131,9 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false # Postgres needs write access
             runAsNonRoot: true
-            runAsUser: 999
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001            
             capabilities:
               drop:
                 - ALL
@@ -268,7 +270,8 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             runAsNonRoot: true
-            runAsUser: 1000
+            runAsUser: 10001
+            runAsGroup: 10001
             capabilities:
               drop:
                 - ALL
@@ -364,7 +367,8 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false # Nginx needs write for cache/pid
             runAsNonRoot: true
-            runAsUser: 101
+            runAsUser: 10001
+            runAsGroup: 10001
             capabilities:
               drop:
                 - ALL
