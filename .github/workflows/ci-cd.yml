@@ -251,7 +251,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git pull --rebase
+          # Sync with remote first
+          git pull --rebase origin ${{ github.ref_name }}
+
+          # Stage manifest changes
           git add k8s/jerney.yaml
+
+          # Commit only if something changed
           git diff --cached --quiet || git commit -m "ci: update k8s images to ${{ steps.sha.outputs.short }} [skip ci]"
+
+          # Push update
           git push
